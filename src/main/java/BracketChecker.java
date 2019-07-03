@@ -9,11 +9,8 @@ public class BracketChecker {
     static {
         bracketPairs = new HashMap<>();
         bracketPairs.put("[", "]");
-        bracketPairs.put("]", "[");
         bracketPairs.put("(", ")");
-        bracketPairs.put(")", "(");
         bracketPairs.put("{", "}");
-        bracketPairs.put("}", "{");
     }
 
     public BracketChecker(String brackets) {
@@ -25,20 +22,23 @@ public class BracketChecker {
         if (brackets.length() % 2 == 1) {
             return  false;
         }
-
         for (int i = 0; i < brackets.length() / 2; i++) {
             String currentBrace = String.valueOf(brackets.charAt(i));
             if (!openingBrackets.contains(currentBrace)) {
                 return false;
             }
             String closingBrace = bracketPairs.get(currentBrace);
-            if(!())
+            String actualBrace = String.valueOf(brackets.charAt(brackets.length() - i - 1));
+            if(actualBrace != closingBrace) {
+                return false;
+            }
         }
 
+        return true;
     }
 
     public static void main(String[] args) {
-        BracketChecker bracketChecker = new BracketChecker("{}[](");
+        BracketChecker bracketChecker = new BracketChecker("({})");
         System.out.println(bracketChecker.areBracketsMatchedAndNestedCorrectly());
     }
 }
