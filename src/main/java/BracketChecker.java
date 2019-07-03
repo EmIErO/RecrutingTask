@@ -1,9 +1,9 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class BracketChecker {
 
     public static Map<String, String> bracketPairs;
+    private List<String> openingBrackets = new ArrayList<>(Arrays.asList("(", "{", "["));
     private String brackets;
 
     static {
@@ -22,13 +22,19 @@ public class BracketChecker {
 
     public boolean areBracketsMatchedAndNestedCorrectly() {
 
-        for (int i = 0; i < brackets.length(); i++) {
-            String brace = String.valueOf(brackets.charAt(i));
-            if (!(brackets.contains(bracketPairs.get(brace)))) {
+        if (brackets.length() % 2 == 1) {
+            return  false;
+        }
+
+        for (int i = 0; i < brackets.length() / 2; i++) {
+            String currentBrace = String.valueOf(brackets.charAt(i));
+            if (!openingBrackets.contains(currentBrace)) {
                 return false;
             }
+            String closingBrace = bracketPairs.get(currentBrace);
+            if(!())
         }
-        return true;
+
     }
 
     public static void main(String[] args) {
