@@ -39,6 +39,9 @@ public class Scrabble {
     }
 
     public Scrabble(String word) {
+        if (word.trim().isEmpty() || word == null) {
+            throw new IllegalArgumentException();
+        }
         this.word = word.toUpperCase();
     }
 
@@ -59,6 +62,7 @@ public class Scrabble {
         }
         return score;
     }
+
 
     public static void main(String[] args) {
         Scrabble s = new Scrabble("jkq");
