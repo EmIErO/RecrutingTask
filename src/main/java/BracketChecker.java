@@ -29,7 +29,7 @@ public class BracketChecker {
             }
             String closingBrace = bracketPairs.get(currentBrace);
             String actualBrace = String.valueOf(brackets.charAt(brackets.length() - i - 1));
-            if(actualBrace != closingBrace) {
+            if(!actualBrace.equals(closingBrace)) {
                 return false;
             }
         }
