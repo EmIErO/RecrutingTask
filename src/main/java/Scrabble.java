@@ -63,9 +63,8 @@ public class Scrabble {
         return score;
     }
 
-
     public static void main(String[] args) {
-        Scrabble s = new Scrabble("jkq");
+        Scrabble s = new Scrabble("");
         System.out.println(s.getScore());
     }
 
