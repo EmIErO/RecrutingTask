@@ -1,5 +1,7 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class Scrabble {
 
@@ -9,39 +11,24 @@ public class Scrabble {
 
 
     static {
-        letters.put("Q", 10);
-        letters.put("Z", 10);
-        letters.put("J", 8);
-        letters.put("X", 8);
-        letters.put("K", 5);
-        letters.put("F", 4);
-        letters.put("H", 4);
-        letters.put("V", 4);
-        letters.put("W", 4);
-        letters.put("Y", 4);
-        letters.put("B", 3);
-        letters.put("C", 3);
-        letters.put("M", 3);
-        letters.put("P", 3);
-        letters.put("D", 2);
-        letters.put("G", 2);
-        letters.put("A", 1);
-        letters.put("E", 1);
-        letters.put("I", 1);
-        letters.put("O", 1);
-        letters.put("U", 1);
-        letters.put("L", 1);
-        letters.put("N", 1);
-        letters.put("R", 1);
-        letters.put("S", 1);
-        letters.put("T", 1);
+        String[] tenPointsLetters = {"Q", "Z"};
+        String[] eightPointsLetters = {"J", "X"};
+        String[] fivePointsLetters = {"K"};
+        String[] fourPointsLetters = {"F", "H", "V", "W", "Y"};
+        String[] threePointsLetters = {"B", "C", "M", "P"};
+        String[] twoPointsLetters = {"D", "G"};
+        String[] onePointLetters = {"A", "E", "I", "O", "U", "L", "N", "R", "S", "T"};
 
+        loadLetters(tenPointsLetters, 10);
+        loadLetters(eightPointsLetters, 8);
+        loadLetters(fivePointsLetters, 5);
+        loadLetters(fourPointsLetters, 4);
+        loadLetters(threePointsLetters, 3);
+        loadLetters(twoPointsLetters, 2);
+        loadLetters(onePointLetters, 1);
     }
 
     public Scrabble(String word) {
-        if (word.trim().isEmpty() || word == null) {
-            throw new IllegalArgumentException();
-        }
         this.word = word.toUpperCase();
     }
 
@@ -54,18 +41,32 @@ public class Scrabble {
     }
 
     public int getScore() {
-        int score = 0;
-        char[] arr = word.toCharArray();
-
-        for (char letter : arr) {
-            score += letters.get(String.valueOf(letter));
+        if (word.isEmpty() || word == null) {
+            return 0;
         }
-        return score;
+
+        Pattern.compile("").splitAsStream(word)
+                .mapToInt(i -> letters.get(i))
+                .sum();
+
+        return word.chars()
+                .mapToObj(i -> (char) i)
+                .mapToInt(i ->letters.get(String.valueOf(i)))
+                .sum();
+    }
+
+    private static void loadLetters(String[] arr, int points) {
+
+        Arrays.stream(arr)
+                .map(String::toUpperCase)
+                .forEach(i ->letters.put(i, points));
     }
 
     public static void main(String[] args) {
-        Scrabble s = new Scrabble("");
+
+        Scrabble s = new Scrabble("aaa");
         System.out.println(s.getScore());
+
     }
 
 
