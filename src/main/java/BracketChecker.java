@@ -3,8 +3,6 @@ import java.util.*;
 public class BracketChecker {
 
     public static Map<Character, Character> bracketPairs;
-    private List<Character> openingBrackets = new ArrayList<>(Arrays.asList('(', '{', '['));
-    private List<Character> closingBrackets = new ArrayList<>(Arrays.asList(')', '}', ']'));
     private String brackets;
 
     static {
@@ -30,9 +28,9 @@ public class BracketChecker {
         for (int i = 0; i < brackets.length(); i++) {
             char currentBracket = brackets.charAt(i);
 
-            if (openingBrackets.contains(currentBracket)) {
+            if (bracketPairs.containsValue(currentBracket)) {
                 stack.push(currentBracket);
-            } else if (closingBrackets.contains(currentBracket)) {
+            } else if (bracketPairs.containsKey(currentBracket)) {
                 if (stack.isEmpty()) { return false; }
 
                 char actualBracket = stack.peek();
@@ -43,9 +41,6 @@ public class BracketChecker {
                 } else { return false; }
             }
         }
-        if (stack.isEmpty()) {
-            return true;
-        }
-        return false;
+        return stack.isEmpty();
     }
 }
